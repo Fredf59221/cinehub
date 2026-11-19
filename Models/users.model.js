@@ -1,7 +1,7 @@
 import Db from '../Config/db.js';
 
 async function insert(user) {
-    const inserted = await Db.query("INSERT INTO users(us_username, us_email, us_password) VALUES (?,?,?)",
+    const [inserted]= await Db.query("INSERT INTO users(us_username, us_email, us_password) VALUES (?,?,?)",
         [user.username, user.email, user.password]);
         return inserted;
     

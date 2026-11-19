@@ -11,7 +11,7 @@ async function getShowing() {
 }
 
 async function getById(id) {
-    const [rows] = await Db.query("SELECT * FROM films WHERE fi_id = ?",[id]);
+    const [rows] = await Db.query("SELECT * FROM films WHERE fi_id = ?", [id]);
     return rows[0];
 }
 
@@ -20,9 +20,17 @@ async function getScreenings(id) {
     return rows;
 }
 
+async function create(film) {
+    const [created] = await Db.query("INSERT INTO films(fi_title, fi_description, fi_duration, fi_genre, fi_release_date, fi_is_showing) VALUES (?,?,?,?,?,?)",
+        [film.title, film.description, film.duration, film.genre, film.release_date, film.is_showing]);
+    return created;
+}
+
+
 export default {
     getAll,
     getShowing,
     getById,
-    getScreenings
+    getScreenings,
+    create
 }

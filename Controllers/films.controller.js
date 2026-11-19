@@ -38,9 +38,32 @@ async function getById(req, res) {
         res.status(500).json({ error: "Erreur lors de la récupération du film" });
     }
 }
+async function create(req, res) {
+    const title = req.body.title;
+    const description = req.body.description;
+    const duration = req.body.duration;
+    const genre = req.body.genre;
+    const release_date = req.body.release_date;
+    const is_showing = req.body.is_showing;
+    if (!title || !duration) {
+        return res.status(403).json({ error: "Champs manquants" });
+    }
+    try {
+        const result = await filmsModel.create({ title: title, description: description, duration: duration, genre: genre, release_date: release_date, is_showing: is_showing });
+        res.status(201).json(result);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "erreur lors de la création du film" });
+
+    }
+}
+
+
 
 export default {
     getAll,
     getShowing,
-    getById
+    getById,
+    create
 }
