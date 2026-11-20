@@ -26,11 +26,19 @@ async function create(film) {
     return created;
 }
 
+async function update(id, film) {
+    const [updated] = await Db.query("UPDATE films SET fi_title = ?, fi_description = ?, fi_duration = ?, fi_genre = ?, fi_release_date = ?, fi_is_showing = ? WHERE fi_id = ?", [film.title, film.description, film.duration, film.genre, film.release_date, film.is_showing, id]);
+    return updated;
+}
+
+
+
 
 export default {
     getAll,
     getShowing,
     getById,
     getScreenings,
-    create
+    create,
+    update
 }

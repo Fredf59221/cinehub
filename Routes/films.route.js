@@ -9,6 +9,7 @@ router.get('/', checkToken, filmsController.getAll);
 router.get('/showing', checkToken, filmsController.getShowing);
 router.get('/:id', checkToken, filmsController.getById);
 router.post('/', checkToken, checkAdmin, filmsController.create);
+router.patch('/:id', checkToken, checkAdmin, filmsController.update);
 
 
 
