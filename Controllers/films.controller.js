@@ -102,6 +102,21 @@ async function update(req, res) {
         
     }
 }
+async function remove (req, res) {
+    const id = req.params.id;
+    try {
+        const film = await filmsModel.getById(id);
+        if (!film) {
+            return res.status(404).json({ error: "Film introuvable" });
+        } 
+        await filmsModel.remove(id);
+        res.status(200).json({message: "Film supprimé"}); 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Erreur lors de la suppression du film" });
+    }
+}
+
 
 
 
@@ -112,5 +127,6 @@ export default {
     getShowing,
     getById,
     create,
-    update
+    update,
+    remove
 }
